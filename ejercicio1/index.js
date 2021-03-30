@@ -9,9 +9,17 @@ var display= $("#display");
 
 function mostrarEnDisplay(valor){
     textDisplay+=valor;
-    $("#display").html(textDisplay);
+    $("#display").val(textDisplay);
 }
 
+$("#display").keypress(function(e){
+    console.log(e)
+    e.preventDefault();
+    let valor =String.fromCharCode(e.which)
+    if( valor.match(/^[0-9]+$/)){
+       mostrarEnDisplay(valor)
+    }
+ });
 
 function guardarDigitos(valor){
 
@@ -32,7 +40,7 @@ function guardarDigitos(valor){
 
 function guardarOperador(valor){
     if(resultado==0){
-        guardarDigitos($("#display").text())
+        guardarDigitos($("#display").val())
         operador=valor;
         textDisplay="";
     }else{
@@ -64,7 +72,7 @@ function operacion(operador,num1,num2){
 
 function result(){
    
-    guardarDigitos($("#display").html());
+    guardarDigitos($("#display").val());
     num1=0;
     num2=0;
     textDisplay="";
@@ -111,7 +119,7 @@ function modulo(num1,num2){
 }
 
 function raiz(){
-    resultado = Math.sqrt($("#display").html());
+    resultado = Math.sqrt($("#display").val());
     num1=0;
     num2=0;
     textDisplay="";
@@ -119,14 +127,14 @@ function raiz(){
 }
 
 function inverso(){
-    resultado = Math.pow($("#display").html(),-1);
+    resultado = Math.pow($("#display").val(),-1);
     num1=0;
     num2=0;
     textDisplay="";
     return mostrarEnDisplay(resultado);
 }
 function signo(){
-    resultado = ($("#display").html()*-1);
+    resultado = ($("#display").val()*-1);
     num1=0;
     num2=0;
     textDisplay="";
@@ -148,9 +156,9 @@ function darCE(){
     mostrarEnDisplay(resultado);
 }
 function corregir(){
-   let numero=$("#display").html();
+   let numero=$("#display").val();
    numero=numero.length;
-   numero=$("#display").html(substring(0,numero-1));
+   numero=$("#display").val(substring(0,numero-1));
    textDisplay="";
    mostrarEnDisplay(numero);
 }
